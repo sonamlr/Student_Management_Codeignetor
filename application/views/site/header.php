@@ -102,7 +102,7 @@
                         {
                             $namee = 'Class';
                         }  
-                        if($this->uri->segment(2)=="fessList" || $this->uri->segment(2)=="submitFee")
+                        if($this->uri->segment(2)=="fessList" || $this->uri->segment(2)=="submitFee" || $this->uri->segment(2)=="viewFee")
                         {
                             $namee = 'Fees';
                         }

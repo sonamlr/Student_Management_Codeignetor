@@ -23,8 +23,8 @@
                                       </div>
                                   </div>
                               </div>
-                              <!-- <?php echo $this->session->flashdata('message'); ?> -->
-                              <div class="table-responsive mb-4">
+                             
+                              <div class="table-responsive mb-4"> 
                                   <table class="table table-hover table-nowrap align-middle mb-0">
 
                                       <thead class="bg-light">
@@ -39,8 +39,6 @@
                                               <th>Mobile</th>
                                               <th>Session Start From</th>
                                               <th>Admission Class</th>
-                                              <!-- <th>Initial Payment</th>
-                                              <th>Enrollment No.</th> -->
                                               <th>Vehical</th>
                                               <th>Delete</th>
                                               <th>Edit</th>

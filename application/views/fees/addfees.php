@@ -16,15 +16,15 @@
                                     <?php echo form_error('enrollment', '<div class="error">', '</div>'); ?>
                             </div>
                             <div class="col-sm-4 mb-3">
-                                <label for="ipayment">Initial Payment</label>
-                                    <input class="form-control" name="ipayment" type="text" required id="ipayment" value="<?php echo $initial_payment; ?>" readonly>
+                                <label for="ipayment">Total Fees Submitted</label>
+                                    <input class="form-control" name="ipayment" type="text" required id="ipayment" value="<?php echo $totalFeeAmount; ?>" readonly>
                                     <?php echo form_error('ipayment', '<div class="error">', '</div>'); ?>
                             </div>
-                            <div class="col-sm-4 mb-3">
+                            <!-- <div class="col-sm-4 mb-3">
                                 <label for="remain">Remaining Amount</label>
                                     <input class="form-control" name="remain" type="text" required id="remain" value="<?php echo $remaining_fee; ?>" readonly>
                                     <?php echo form_error('remain', '<div class="error">', '</div>'); ?>
-                            </div> 
+                            </div>  -->
                             <div class="col-sm-4 mb-3">
                                 <label for="fees"> Fee Amount</label>
                                     <input class="form-control" name="fees" type="text" required id="fees" placeholder="Enter Amount">

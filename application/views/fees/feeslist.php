@@ -8,24 +8,21 @@
                               <div class="row mb-2">
                                   <div class="col-md-6">
                                       <div class="form-inline float-md-start mb-3">
+                                      <?php echo form_open('Home/fessList'); ?>
                                           <div class="search-box me-2">
                                               <div class="position-relative">
-                                                  <input type="text" class="form-control border" placeholder="Search...">
+                                                  <input type="text" class="form-control border" id="searchQuery" name="search_query" placeholder="Search...">
                                                   <i class="ri-search-line search-icon"></i>
                                               </div>
                                           </div>
-                                      </div>
-                                  </div>
-                                  <!-- <div class="col-md-6">
-                                      <div class="mb-3 float-end">
-                                          <?php echo anchor("Home/addStudent", ' <i class="mdi mdi-plus me-1"></i> Create Student', 'class="btn btn-primary"'); ?>
+                                          <?php echo form_close(); ?>
 
                                       </div>
-                                  </div> -->
-                              </div>
-                              <!-- <?php echo $this->session->flashdata('message'); ?> -->
+                                  </div>
+                        
+
                               <div class="table-responsive mb-4">
-                                  <table class="table table-hover table-nowrap align-middle mb-0">
+                                  <table class="table table-hover table-nowrap align-middle mb-0" id="searchResultsTable">
 
                                       <thead class="bg-light">
                                           <tr>
@@ -33,12 +30,18 @@
                                               <th>Enrollment No</th>
                                               <th>Class</th>
                                               <th>Total Submitted Fees</th>
-                                              <th>Remaining Amount </th>
                                               <th>Action</th>
                                           </tr>
                                       </thead>
                                       <tbody>
-                                          <?php echo $list; ?>
+                                       <?php if($list)
+                                        {
+                                            $listinfo =  $list;
+                                       }else{
+                                        $listinfo =  $feelist;
+                                       }
+                                         ?>
+                                         <?php echo $listinfo; ?>
                                       </tbody>
                                   </table>
                               </div>

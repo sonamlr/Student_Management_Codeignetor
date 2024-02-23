@@ -9,19 +9,19 @@
                             <?php echo form_open_multipart("Home/updateStudent/".$this->uri->segment(3)); ?>
                             <div class="row">
 
-                            <!-- <div class="col-sm-4 mb-3">
+                            <div class="col-sm-4 mb-3">
                                 <label for="aclass">Admission Class</label>
                                 <select class="form-select" name="aclass" id="aclass" onchange='GetFees(this.value)'>
-                                    <option selected="">Choose...</option>
+                                    <option value="<?php echo $admission_class;?>" selected=""><?php echo $class;?></option>
                                     <?php echo $classname;?>
                                 </select>
                             </div>
                             <script>
                                     function GetFees(a) {
-                                        var url = '<?php echo base_url('Home/addStudent/'); ?>' + a;
+                                        var url = '<?php echo base_url('Home/updateStudent/'.$id .'/'); ?>' + a;
                                         window.location.replace(url);
                                     }
-                                </script> -->
+                                </script>
                                 <input type="hidden" name="id" value="<?php echo $id; ?>" />
                             <div class="col-sm-4 mb-3">
                                 <label for="name">First Name</label>
@@ -68,15 +68,6 @@
                                     <?php echo form_error('ssfrom', '<div class="error">', '</div>'); ?>
                             </div>
                            
-                            <!-- <div class="col-sm-4 mb-3">
-                                <label for="ipayment">Initial Payment</label>
-                                <select class="form-select" id="ipayment" name="ipayment">
-                                    <option selected="">Choose...</option>
-                                    <?php echo $first;?> 
-                                    <?php echo $second;?> 
-                                    <?php echo $total;?> 
-                                </select>
-                            </div> -->
                             <div class="col-sm-4 mb-3">
                                 <label for="enrollment">Enrollment Number</label>
                                     <input class="form-control" name="enrollment" type="text" required id="enrollment" value="<?php echo $enrollment;?>">
