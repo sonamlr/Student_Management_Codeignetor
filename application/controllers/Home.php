@@ -66,12 +66,25 @@ class Home extends CI_Controller {
 		$this->load->view('student/liststudent');
 		$this->load->view('site/footer');
 	}
+	public function is_enrollment_unique($enrollment) {
+		$query = $this->db->get_where('student', array('enrollment' => $enrollment));
+
+        if ($query->num_rows() === 0) {
+            return TRUE; 
+        } else {
+            $this->form_validation->set_message('is_enrollment_unique', 'The enrollment number is not unique.');
+            return FALSE; 
+        }
+    }
 	public function addStudent()
 		{
 			
 			$this->form_validation->set_rules('name', 'password', 'required');
 			$this->form_validation->set_rules('mobile', 'mobile', 'required|regex_match[/^[0-9]{10}$/]');
 			$this->form_validation->set_rules('aid', 'adhar number', 'required|regex_match[/^[0-9]{12}$/]');
+			$this->form_validation->set_rules('enrollment', 'Enrollment', 'required|callback_is_enrollment_unique');
+			$this->form_validation->set_rules('ipayment', 'Initial Payment', 'required');
+
 			if ($this->form_validation->run() == False) 
 				{
 					$selectedOptionValue = $this->uri->segment(3);
@@ -230,7 +243,7 @@ class Home extends CI_Controller {
 				<td>".$v['classname']."</td>
 				<td>".$v['fees']."</td>
 				<td>".$delete."</td>
-				<td>".anchor("Home/updateClass/".$v['id'], '<i class="fa fa-pencil-square edit" title="edit" aria-hidden="true"></i>')."</td>
+				<td>".anchor("Home/updateClass/".md5($v['id']), '<i class="fa fa-pencil-square edit" title="edit" aria-hidden="true"></i>')."</td>
 			</tr>";
 			$i++;
 		}
@@ -265,7 +278,7 @@ class Home extends CI_Controller {
 				if ($this->form_validation->run() == False) 
 					{
 						$id = $this->uri->segment(3);
-						$this->db->where(array("id" => $id));
+						$this->db->where(array("md5(id)" => $id));
 						$dd = $this->db->get('class_fees');
 						$edit['id'] = $dd->row()->id;
 						$edit['classname'] = $dd->row()->classname;
@@ -279,8 +292,8 @@ class Home extends CI_Controller {
 						$id = $this->input->post('id');
 						$update['classname'] = $this->input->post('classname'); 
 						$update['fees'] = $this->input->post('fees');
-						$this->db->where(array("id"=>$id)); 
-						$this->db->insert('class_fees', $update);
+						$this->db->where(array("md5(id)"=>$id)); 
+						$this->db->update('class_fees', $update);
 						redirect('Home/classList/');
 					}
 
@@ -314,12 +327,14 @@ class Home extends CI_Controller {
 					
 					$str.='<tr>
 						<td>'.$i.'</td>
+						<td>'.$v['first_name'].' '.$v['last_name'].'</td>
 						<td>'.$v['enrollment'].'</td>
 						<td>'.$class->row()->classname.'-'.$class->row()->fees.'</td>
 						<td>'.$totalFeeAmount.' <i class="fa fa-inr" aria-hidden="true"></i>/-</td>
 						<!--<td>'.$remaining.' <i class="fa fa-inr" aria-hidden="true"></i> /-</td>-->
-						<td>'.anchor("Home/submitFee/".$v['id'], '<i class="ri-currency-fill edit" title="Submit Fees" aria-hidden="true"></i>').'
-						| '.anchor("Home/viewFee/".$v['id'], '<i class="fa fa-eye " title="View Details" aria-hidden="true"></i>').'</td>
+						<td>'.anchor("Home/submitFee/".md5($v['id']), '<i class="ri-currency-fill edit" title="Submit Fees" aria-hidden="true"></i>').'
+						| '.anchor("Home/viewFee/".md5($v['id']), '<i class="fa fa-eye " title="View Details" aria-hidden="true"></i>').'
+						| '.anchor("Home/invoice/".md5($v['id']), '<i class="fas fa-file-invoice" title="Invoice Details" aria-hidden="true"></i>').'</td>
 					</tr>';
 					$i++;
 				}
@@ -343,7 +358,7 @@ class Home extends CI_Controller {
 			if ($this->form_validation->run() == False) 
 				{
 					$id = $this->uri->segment(3);
-					$this->db->where(array("id"=>$id));
+					$this->db->where(array("md5(id)"=>$id));
 					$dd = $this->db->get('student');
 					
 					$studentid = $dd->row()->id;
@@ -367,13 +382,14 @@ class Home extends CI_Controller {
 			else
 				{
 					$id = $this->input->post("id");
-					$this->db->where(array("id"=>$id));
+					$this->db->where(array("md5(id)"=>$id));
 					$student = $this->db->get('student');
 
 					$insert['enrollment_number'] = @$student->row()->enrollment;
 					$insert['class_id'] = @$student->row()->admission_class;
+					$stuid = @$student->row()->id;
 
-					$insert['student_id'] = $id;
+					$insert['student_id'] = $stuid;
 					$fees = $this->input->post('fees');
 					$insert['amount	'] = $fees;
 					$insert['date'] = date('Y-m-d H:i:s');
@@ -387,7 +403,7 @@ class Home extends CI_Controller {
 			$i = 1;
 			$str = null;
 			$stuid = $this->uri->segment(3);
-			$this->db->where(array("id"=>$stuid));
+			$this->db->where(array("md5(id)"=>$stuid));
 			$dd = $this->db->get('student');
 			$data['id'] = @$dd->row()->id;
 			$data['enrollment'] = @$dd->row()->enrollment;
@@ -404,7 +420,7 @@ class Home extends CI_Controller {
 			$class = $this->db->get('class_fees');
 			$data['classname'] = @$class->row()->classname;
 			
-			$this->db->where(array("student_id"=>$stuid));
+			$this->db->where(array("md5(student_id)"=>$stuid));
 			$this->db->order_by('date', 'DESC'); 
 			$fees = $this->db->get('fees_payment');
 			foreach($fees->result_array() as $v)
@@ -415,7 +431,6 @@ class Home extends CI_Controller {
 					$classname = @$class->row()->classname;
 					$str.=" <tr>
 					<th scope='row'>".$i."</th>
-					<td>".$v['enrollment_number']."</td>
 					<td>".$classname."</td>
 					<td>".$v['amount']." <i class='fa fa-inr' aria-hidden='true'></i>-/</td>
 					<td>".$v['date']."</td>
@@ -428,6 +443,67 @@ class Home extends CI_Controller {
 			$this->load->view('fees/view_fees', $data);
 			$this->load->view('site/footer');
 		}
+	public function invoice() 
+	 {
+		$i = 1;
+			$str = null;
+			$stuid = $this->uri->segment(3);
+			$this->db->where(array("md5(id)"=>$stuid));
+			$dd = $this->db->get('student');
+			$data['id'] = @$dd->row()->id;
+			$data['enrollment'] = @$dd->row()->enrollment;
+			$data['first_name'] = @$dd->row()->first_name;
+			$data['last_name'] = @$dd->row()->last_name;
+			$data['father_name'] = @$dd->row()->father_name;
+			$data['mother_name'] = @$dd->row()->mother_name;
+			$data['dob'] = @$dd->row()->dob;
+			$data['adhar_id'] = @$dd->row()->adhar_id;
+			$data['mobile_no'] = @$dd->row()->mobile_no;
+			// invoice number
+			$initials = 'DZ';
+			$monthDay = date('md');
+			$data['invoiceNumber'] = '#' . $initials . $monthDay;
+			#total amount
+			$this->db->where_in("md5(student_id)", $stuid);
+			$this->db->select_sum('amount', 'TotalAmount');
+			$query = $this->db->get('fees_payment');
+			$FeesTotal =  $query->row()->TotalAmount;
+			$data['totalFee'] = $FeesTotal ;
+
+			$classid = @$dd->row()->admission_class;
+			$this->db->where(array("id"=>$classid));
+			$class = $this->db->get('class_fees');
+			$data['classname'] = @$class->row()->classname;
+			
+			$this->db->where(array("md5(student_id)"=>$stuid));
+			$this->db->order_by('date', 'DESC'); 
+			$fees = $this->db->get('fees_payment');
+			foreach($fees->result_array() as $v)
+				{ 
+					$classid = $v['class_id'];
+					$this->db->where(array("id"=>$classid));
+					$class = $this->db->get('class_fees');
+					$classname = @$class->row()->classname;
+					$str.=" <tr>
+					<th scope='row'>".$i."</th>
+					<td>
+						<div>
+							<h5 class='text-truncate font-size-14 mb-1'>".$classname."</h5>
+							<p class='text-muted mb-0'> </p>
+						</div>
+					</td>
+					<td>".$v['date']."</td>
+					<td></td>
+					<td class='text-end'>".$v['amount']." <i class='fa fa-inr' aria-hidden='true'></i></td>
+					</tr>";
+					$i++;
+				}
+			$data['list'] = $str;
+
+		$this->load->view('site/header');
+		$this->load->view('fees/invoice', $data);
+		$this->load->view('site/footer');
+	}
 	
 		
 

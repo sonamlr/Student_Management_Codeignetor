@@ -27,6 +27,7 @@
                                       <thead class="bg-light">
                                           <tr>
                                               <th>S.N.</th>
+                                              <th>Student Name</th>
                                               <th>Enrollment No</th>
                                               <th>Class</th>
                                               <th>Total Submitted Fees</th>
@@ -34,14 +35,15 @@
                                           </tr>
                                       </thead>
                                       <tbody>
-                                       <?php if($list)
+                                        <!-- <?php if($list)
                                         {
                                             $listinfo =  $list;
-                                       }else{
+                                       }
+                                       else{
                                         $listinfo =  $feelist;
                                        }
-                                         ?>
-                                         <?php echo $listinfo; ?>
+                                         ?> -->
+                                         <?php echo $list; ?>
                                       </tbody>
                                   </table>
                               </div>

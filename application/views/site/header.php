@@ -4,7 +4,7 @@
 <head>
 
     <meta charset="utf-8" />
-    <title>Dashboard | Experifun - Admin & Dashboard </title>
+    <title>Student Dashboard </title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
     <meta content="Themesdesign" name="author" />
@@ -105,6 +105,10 @@
                         if($this->uri->segment(2)=="fessList" || $this->uri->segment(2)=="submitFee" || $this->uri->segment(2)=="viewFee")
                         {
                             $namee = 'Fees';
+                        } 
+                         if($this->uri->segment(2)=="invoice")
+                        {
+                            $namee = 'Invoice';
                         }
 					?>
                         <h4 class="page-title mb-0"><?php echo $namee?></h4>

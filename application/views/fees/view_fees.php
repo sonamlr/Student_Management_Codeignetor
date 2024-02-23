@@ -46,9 +46,8 @@
                                     <?php echo form_error('mobile', '<div class="error">', '</div>'); ?>
                             </div>
                             </div>
-                            <div class="col-12">
-                                <button type="button" onclick="history.back()" class="btn btn-info waves-effect waves-light">Back</button>
-                            </div>
+                           
+                           
 
 
                         </div>
@@ -65,7 +64,6 @@
                                     <thead>
                                         <tr>
                                             <th>S.N.</th>
-                                            <th>Enrollment No.</th>
                                             <th>Class</th>
                                             <th>Amount</th>
                                             <th>Date</th>
@@ -80,6 +78,10 @@
                         </div>
                     </div>
                 </div>
+                <div class="col-12">
+                                <button type="button" onclick="history.back()" class="btn btn-info waves-effect waves-light">Back</button>
+                                <a href="javascript:window.print()" class="btn btn-success me-1"><i class="fa fa-print" title="Print Invoice"></i></a>        
+                            </div>
             </div>
         </div>
     </div>

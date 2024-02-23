@@ -9,7 +9,7 @@
                             <?php echo form_open_multipart("Home/updateClass/".$this->uri->segment(3)); ?>
                             <div class="row">
                             <div class="col-sm-4 mb-3">
-                                <input type="hidden" name="id" value="<?php echo $id;?>">
+                                <input type="hidden" name="id" value="<?php echo md5($id);?>">
                                 <label for="classname">Class Name</label>
                                     <input class="form-control" name="classname" type="text" required id="classname" value="<?php echo $classname;?>">
                                     <?php echo form_error('classname', '<div class="error">', '</div>'); ?>

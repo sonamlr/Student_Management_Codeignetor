@@ -25,72 +25,73 @@
                                 
                             <div class="col-sm-4 mb-3">
                                 <label for="name">First Name</label>
-                                    <input class="form-control" name="name" type="text" required id="name">
+                                    <input class="form-control" name="name" type="text" required id="name" value="<?php echo set_value('name'); ?>">
                                     <?php echo form_error('name', '<div class="error">', '</div>'); ?>
                             </div>
                            
                             <div class="col-sm-4 mb-3">
                                 <label for="lname">Last Name</label>
                                 
-                                    <input class="form-control" name="lname" type="text" required id="lname">
+                                    <input class="form-control" name="lname" type="text" required id="lname" value="<?php echo set_value('lname'); ?>">
                                     <?php echo form_error('lname', '<div class="error">', '</div>'); ?>
                                 
                             </div>
                             <div class="col-sm-4 mb-3">
                                 <label for="fname">Father Name</label>
-                                    <input class="form-control" name="fname" type="text" required id="fname">
+                                    <input class="form-control" name="fname" type="text" required id="fname" value="<?php echo set_value('fname'); ?>">
                                     <?php echo form_error('fname', '<div class="error">', '</div>'); ?>
                             </div>
                             <div class="col-sm-4 mb-3">
                                 <label for="mname">Mother Name</label>
-                                    <input class="form-control" name="mname" type="text" required id="mname">
+                                    <input class="form-control" name="mname" type="text" required id="mname" value="<?php echo set_value('mname'); ?>">
                                     <?php echo form_error('mname', '<div class="error">', '</div>'); ?>
                             </div>
                             <div class="col-sm-4 mb-3">
                                 <label for="dob" >Date of Birth</label>
-                                    <input class="form-control" name="dob" type="date" required id="dob">
+                                    <input class="form-control" name="dob" type="date" required id="dob" value="<?php echo set_value('dob'); ?>">
                                     <?php echo form_error('dob', '<div class="error">', '</div>'); ?>
                             </div>
                             
                             <div class="col-sm-4 mb-3">
                                 <label for="aid">Adhar Id</label>
-                                    <input class="form-control" name="aid" type="text" required id="aid">
+                                    <input class="form-control" name="aid" type="text" required id="aid" value="<?php echo set_value('aid'); ?>">
                                     <?php echo form_error('aid', '<div class="error">', '</div>'); ?>
                             </div>
                             <div class="col-sm-4 mb-3">
                                 <label for="mobile">Mobile</label>
-                                    <input class="form-control" name="mobile" type="number" required id="mobile">
+                                    <input class="form-control" name="mobile" type="number" required id="mobile" value="<?php echo set_value('mobile'); ?>">
                                     <?php echo form_error('mobile', '<div class="error">', '</div>'); ?>
                             </div>
                             <div class="col-sm-4 mb-3">
                                 <label for="ssfrom">Session Start From</label>
-                                    <input class="form-control" name="ssfrom" type="date" required id="ssfrom">
+                                    <input class="form-control" name="ssfrom" type="date" required id="ssfrom" value="<?php echo set_value('date'); ?>">
                                     <?php echo form_error('ssfrom', '<div class="error">', '</div>'); ?>
                             </div>
                            
                             <div class="col-sm-4 mb-3">
                                 <label for="ipayment">Initial Payment</label>
-                                <select class="form-select" id="ipayment" name="ipayment">
-                                    <option selected="">Choose...</option>
+                                <select class="form-select" id="ipayment" name="ipayment" required>
+                                    <!-- <option selected="">Choose...</option> -->
                                     <?php echo $first;?> 
                                     <?php echo $second;?> 
                                     <?php echo $total;?> 
                                 </select>
+                                <?php echo form_error('ipayment', '<div class="error">', '</div>'); ?>
                             </div>
                             <div class="col-sm-4 mb-3">
                                 <label for="enrollment">Enrollment Number</label>
-                                    <input class="form-control" name="enrollment" type="text" required id="enrollment">
+                                    <input class="form-control" name="enrollment" type="text" required id="enrollment" value="<?php echo set_value('enrollment'); ?>">
                                     <?php echo form_error('enrollment', '<div class="error">', '</div>'); ?>
                             </div>
                          
                             <div class="col-sm-4 mb-3">
                                 <h5 class="font-size-14 mb-4">Vehical</h5>
                                 <div class="form-check mb-3 form-check-inline">
-                                    <input class="form-check-input" type="radio" value="Y" name="vehical" id="vehical1">
+                                    <input class="form-check-input" type="radio" value="Y" name="vehical" id="vehical1" <?php echo set_radio('vehical', 'Y'); ?>>
                                     <label class="form-check-label" for="formRadios1"> Yes </label>
                                 </div>
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" value="N" name="vehical" id="vehical2">
+                                    <input class="form-check-input" type="radio" value="N" name="vehical" id="vehical2" <?php echo set_radio('vehical', 'N'); ?>>
                                     <label class="form-check-label" for="formRadios2">No</label>
                                 </div>
                             </div>
@@ -100,7 +101,8 @@
                                 <button type="submit" class="btn btn-primary">Submit</button>&nbsp;&nbsp;&nbsp;&nbsp;
                                 <button type="button" onclick="history.back()" class="btn btn-danger waves-effect waves-light">Cancle</button>
                             </div>
-                            <!-- end row -->
+                            
+
                            
                         </div>
                     </div>

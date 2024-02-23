@@ -68,11 +68,11 @@
                                     <?php echo form_error('ssfrom', '<div class="error">', '</div>'); ?>
                             </div>
                            
-                            <div class="col-sm-4 mb-3">
+                            <!-- <div class="col-sm-4 mb-3">
                                 <label for="enrollment">Enrollment Number</label>
                                     <input class="form-control" name="enrollment" type="text" required id="enrollment" value="<?php echo $enrollment;?>">
                                     <?php echo form_error('enrollment', '<div class="error">', '</div>'); ?>
-                            </div>
+                            </div> -->
                          
                             <div class="col-sm-4 mb-3">
                                 <h5 class="font-size-14 mb-4">Vehical</h5>
